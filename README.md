@@ -1,7 +1,6 @@
-# POCS ##
-## Panoptes Observatory Control System
+# Python Docker Flow Example Project
 
-### NOTE: This README is targeted at people looking to contribute to the POCS source code. If you are looking to install POCS on a device for a build, please visit [here]() for those instructions.
+This application is meant to show off a nice workflow for doing development of a python app using docker.The source code is in `src/` and the tests are in `tests/`. There are make commands that will build and start a development environment with all the specified pip packages installed. The src and tests directories are mapped into the container as volumes, so you can edit files with the IDE of your choice and the updated python code will be available in the container for running tests or a python shell.
 
 ## Development Environment Setup
 
@@ -15,22 +14,37 @@ Docker is used to create an isolated environment on your development machine wit
 
 Make is used to encapsulate the terminal commands for setting up and running the environment. You can learn more about it [here]().
 
-## Build Development Environment
+## Start The Development Environment
+The following make command will build the docker container and start the container. This is running the `build-dev-env` and `run-dev-env` make tasks sequentially.
+Your terminal will be started inside the container in the directory where the source code is mapped.
+```
+$ make start-dev-env
+```
+
+## Only Build Development Environment
 The following make command will create a docker image with the prerequisites for the POCS source code installed. The image name is `pocs` and the tag is `latest`
 
 ```
 $ make build-dev-env
 ```
 
+## Running The Development Environment
+The following make command will run the docker container with your local src/ and tests/ folders mapped into the container as volumes.
+You will be able to make updates to the local copy of the code and they will be reflected in the container.
+
+```
+$ make run-dev-env
+```
+
 ## Run Tests
 
 ### Single Test Run
 ```
-$ make start-develop-env
+$ make start-dev-env
 $ python -m pytest
 ```
 
-### File Watcher Test Run (will re-run on detected changes to files)
+### File Watcher Test Run (will re-run on detected changes to source files, test files, and new tests)
 ```
 $ make start-develop-env
 $ ptw
@@ -42,11 +56,13 @@ This project is managed by a distributed team of contributors. In order to make 
 
 1. Fork the repository
 2. Clone the repository to your development machine
-3. Set the upstream to the panoptes pocs repository
+3. Set the upstream to the source repository
 4. Create a branch e.g. `my-feature-branch`
 5. Make commits to the branch to implement the bugfix or enhancement. Add tests if appropriate.
 6. Before pushing to your branch make sure all tests pass (see `Run Tests` section)
-7. After pushing. Create a PR back to the `develop` branch of the Panoptes POCS repository.
+7. After pushing. Create a PR back to the `main` branch of the source repository.
 
 ## Creating a Release
+
+TODO
 
